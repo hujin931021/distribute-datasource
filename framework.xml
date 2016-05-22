@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="
+       	http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans-4.2.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context-4.2.xsd
+        http://www.springframework.org/schema/mvc
+        http://www.springframework.org/schema/mvc/spring-mvc-4.2.xsd
+        http://www.springframework.org/schema/aop
+        http://www.springframework.org/schema/aop/spring-aop-4.2.xsd
+        http://www.springframework.org/schema/tx
+        http://www.springframework.org/schema/tx/spring-tx-4.2.xsd ">
+
+	<!--配置多个数据源-->
+	<bean id="dota_grp_hujin_master" class="com.mchange.v2.c3p0.ComboPooledDataSource"
+		destroy-method="close">
+		<property name="driverClass" value="${hujin_master.driverClass}" />
+		<property name="jdbcUrl" value="${hujin_master.jdbcUrl}" />
+		<property name="user" value="${hujin_master.user}" />
+		<property name="password" value="${hujin_master.password}" />
+		<property name="minPoolSize" value="${hujin_master.minPoolSize}" />
+		<property name="maxPoolSize" value="${hujin_master.maxPoolSize}" />
+		<property name="initialPoolSize" value="${hujin_master.initialPoolSize}" />
+		<property name="maxStatements" value="${hujin_master.maxStatements}" />
+		<property name="maxIdleTime" value="${hujin_master.maxIdleTime}" />
+		<property name="idleConnectionTestPeriod" value="${hujin_master.idleConnectionTestPeriod}" />
+		<property name="acquireRetryAttempts" value="${hujin_master.acquireRetryAttempts}" />
+		<property name="acquireIncrement" value="${hujin_master.acquireIncrement}" />
+		<property name="breakAfterAcquireFailure" value="${hujin_master.breakAfterAcquireFailure}" />
+		<property name="testConnectionOnCheckout" value="${hujin_master.testConnectionOnCheckout}" />
+	</bean>
+
+	<bean id="dota_grp_hujin_slave" class="com.mchange.v2.c3p0.ComboPooledDataSource"
+		destroy-method="close">
+		<property name="driverClass" value="${hujin_slave.driverClass}" />
+		<property name="jdbcUrl" value="${hujin_slave.jdbcUrl}" />
+		<property name="user" value="${hujin_slave.user}" />
+		<property name="password" value="${hujin_slave.password}" />
+		<property name="minPoolSize" value="${hujin_slave.minPoolSize}" />
+		<property name="maxPoolSize" value="${hujin_slave.maxPoolSize}" />
+		<property name="initialPoolSize" value="${hujin_slave.initialPoolSize}" />
+		<property name="maxStatements" value="${hujin_slave.maxStatements}" />
+		<property name="maxIdleTime" value="${hujin_slave.maxIdleTime}" />
+		<property name="idleConnectionTestPeriod" value="${hujin_slave.idleConnectionTestPeriod}" />
+		<property name="acquireRetryAttempts" value="${hujin_slave.acquireRetryAttempts}" />
+		<property name="acquireIncrement" value="${hujin_slave.acquireIncrement}" />
+		<property name="breakAfterAcquireFailure" value="${hujin_slave.breakAfterAcquireFailure}" />
+		<property name="testConnectionOnCheckout" value="${hujin_slave.testConnectionOnCheckout}" />
+	</bean>
+
+	<bean id="dota_grp_hu_master" class="com.mchange.v2.c3p0.ComboPooledDataSource"
+		destroy-method="close">
+		<property name="driverClass" value="${hu_master.driverClass}" />
+		<property name="jdbcUrl" value="${hu_master.jdbcUrl}" />
+		<property name="user" value="${hu_master.user}" />
+		<property name="password" value="${hu_master.password}" />
+		<property name="minPoolSize" value="${hu_master.minPoolSize}" />
+		<property name="maxPoolSize" value="${hu_master.maxPoolSize}" />
+		<property name="initialPoolSize" value="${hu_master.initialPoolSize}" />
+		<property name="maxStatements" value="${hu_master.maxStatements}" />
+		<property name="maxIdleTime" value="${hu_master.maxIdleTime}" />
+		<property name="idleConnectionTestPeriod" value="${hu_master.idleConnectionTestPeriod}" />
+		<property name="acquireRetryAttempts" value="${hu_master.acquireRetryAttempts}" />
+		<property name="acquireIncrement" value="${hu_master.acquireIncrement}" />
+		<property name="breakAfterAcquireFailure" value="${hu_master.breakAfterAcquireFailure}" />
+		<property name="testConnectionOnCheckout" value="${hu_master.testConnectionOnCheckout}" />
+	</bean>
+
+	<bean id="dota_grp_hu_slave" class="com.mchange.v2.c3p0.ComboPooledDataSource"
+		destroy-method="close">
+		<property name="driverClass" value="${hu_slave.driverClass}" />
+		<property name="jdbcUrl" value="${hu_slave.jdbcUrl}" />
+		<property name="user" value="${hu_slave.user}" />
+		<property name="password" value="${hu_slave.password}" />
+		<property name="minPoolSize" value="${hu_slave.minPoolSize}" />
+		<property name="maxPoolSize" value="${hu_slave.maxPoolSize}" />
+		<property name="initialPoolSize" value="${hu_slave.initialPoolSize}" />
+		<property name="maxStatements" value="${hu_slave.maxStatements}" />
+		<property name="maxIdleTime" value="${hu_slave.maxIdleTime}" />
+		<property name="idleConnectionTestPeriod" value="${hu_slave.idleConnectionTestPeriod}" />
+		<property name="acquireRetryAttempts" value="${hu_slave.acquireRetryAttempts}" />
+		<property name="acquireIncrement" value="${hu_slave.acquireIncrement}" />
+		<property name="breakAfterAcquireFailure" value="${hu_slave.breakAfterAcquireFailure}" />
+		<property name="testConnectionOnCheckout" value="${hu_slave.testConnectionOnCheckout}" />
+	</bean>
+	
+	<!-- 配置数据源 -->
+	<bean id="dynamicRoutingDataSources"
+		class="com.hujin.dota.group.core.datasource.DynamicRoutingDataSources">
+		<property name="targetDataSources">
+			<map key-type="java.lang.String">
+				<entry key="dota_grp_hujin_master" value-ref="dota_grp_hujin_master" />
+				<entry key="dota_grp_hujin_slave" value-ref="dota_grp_hujin_slave" />
+				<entry key="dota_grp_hu_master" value-ref="dota_grp_hu_master" />
+				<entry key="dota_grp_hu_slave" value-ref="dota_grp_hu_slave" />
+			</map>
+		</property>
+		<property name="defaultTargetDataSource" ref="dota_grp_hujin_slave" />
+	</bean>
+
+	<bean id="transactionManager"
+		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dynamicRoutingDataSources" />
+	</bean>
+
+	<!-- 对所有service方法定义切点 -->
+	<bean id="dataSourceAdvice" class="com.hujin.dota.group.core.datasource.DataSourceAdvice" />
+	<aop:config>
+		<aop:pointcut id="servicePointCut" expression="execution(* com.hujin..*Service.*(..))" />
+		<aop:advisor advice-ref="dataSourceAdvice" pointcut-ref="servicePointCut"
+			order="3" />
+	</aop:config>
+
+	<!-- Spring集成Mybatis -->
+	<bean id="sqlSessionFactoryBean" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dynamicRoutingDataSources" />
+		<property name="configLocation" value="classpath:config/mybatis/mybatis-config.xml" />
+	</bean>
+	<bean id="sqlSessionTemplate" class="org.mybatis.spring.SqlSessionTemplate">
+		<constructor-arg index="0" ref="sqlSessionFactoryBean" />
+	</bean>
+
+
+	<mvc:annotation-driven />
+
+	<!-- 登陆成功之后tenantId拦截 -->
+	<bean id="dataSourceInterceptor"
+		class="com.hujin.dota.group.core.interceptor.DataSourceInterceptor" />
+	<bean
+		class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping">
+		<property name="interceptors">
+			<list>
+				<ref bean="dataSourceInterceptor" />
+			</list>
+		</property>
+		<!-- order越小优先级越高，Springmvc只会取优先级最高的handlerMapping处理请求 -->
+		<property name="order" value="-1" />
+	</bean>
+</beans>
